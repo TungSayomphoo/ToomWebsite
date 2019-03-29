@@ -1,0 +1,75 @@
+#cardView {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#cusphoneView {
+    display: none;
+}
+
+.table {
+    margin-top: 70px;
+}
+
+.pNodata {
+    margin-top: 70px;
+}
+
+.disable {
+    color: #777;
+}
+
+.submitB {
+    margin-left: 15px;
+}
+
+.add {
+    color: green;
+}
+
+.delete {
+    color: red;
+}
+
+.navbar2 {
+    display: none;
+}
+
+.dropdown {
+    margin-top: 5px;
+    display: inline;
+}
+
+#map-canvas {
+    width: 1000px;
+    height: 800px;
+    display: block;
+    margin: auto;
+}
+
+@media only screen and (max-width: 768px) {
+   
+    .navbar {
+        display: none;
+    }
+
+    .navbar2 {
+        display: inline;
+    }
+
+    #map-canvas {
+        width: 300px;
+        height: 500px;
+        display: block;
+        margin: auto;
+    }
+
+    .table {
+        margin-top: 30px;
+    }
+
+    .pNodata {
+        margin-top: 30px;
+    }
+
+}

@@ -1,0 +1,106 @@
+'toom api --version 0.2.5'
+
+|get|       /alluser
+				ดู user ทั้งหมด
+|get|       /user?phone=
+				หาข้อมูลของ user ด้วยเบอร์โทร ex. 0801234567
+|get|       /user/bike?phone=
+				หามอไซต์ทั้งหมดของ user ด้วยเบอร์โทร ex. 0801234567
+|get|       /allhis/user?phone='
+				หาประวัติทั้งหมดของ user ด้วยเบอร์โทร ex. 0801234567
+|get|       /allhis'
+				ดู history ทั้งหมด
+|get|		/allhis/status?status=
+				ดู history ตาม status
+|get|		/selecthis?his_num=
+				ดู history ตาม his_num
+|get|       /insert/user?phone=&name=&email=
+				เพิ่มข้อมูลลูกค้าด้วย param เบอร์โทร ชื่อ อีเมล
+|get|       /update/user?phone=&name=&email=
+				แก้ไขข้อมูลลูกค้าด้วย param ที่ เบอร์=phone เปลี่ยนชื่อกับอีเมล
+|get|       /insert/bike?phone=&number=&brand=&model=&color=
+				เพิ่มข้อมูลมอไซต์ด้วย param เลขทะเบียน ยี่ห้อ รุ่น สี
+|get|       /update/bike?number=&brand=&model=&color=
+				แก้ไขข้อมูลมอไซต์ด้วย param ที่ เลขทะเบียน=number เปลี่ยนยี่ห้อ รุ่น สี
+|get|       /delete/bike?number=
+				ลบข้อมูลของมอไซต์ด้วย param เลขทะเบียน=number
+|get|        /insert/history?phone=&number=&lat=&lng=&detail
+				เพิ่มประวัติการแจ้งซ่อมด้วย param เบอร์ลูกค้า เลขทะเบียนรถ lat lng
+|get|       /update/history?his_num=&number=&lat=&lng=&detail=&price=&status=
+				แก้ไขประวัติการแจ้งซ่อมด้วย param ระบุด้วย his_num=his_num เปลี่ยนยเลขทะเบียนรถ lat lng รายละเอียด ราคา status
+|get|       /delete/history?/his_num=
+				ลบประวัติการแจ้งซ่อมด้วย param ระบุด้วย his_num
+|get|       /allbike
+				ดู bike ทั้งหมด
+|post|      /post/history
+				เพิ่มประวัติการแจ้งซ่อมด้วย json
+				{
+					"phone":"0800000001", 		* เบอร์ลูกค้าต้องมีใน database ก่อน
+					"number":"ab1234", 			* เลขทะเบียนมอไซต์ต้องมีใน database ก่อน
+					"lat":"16.432194",
+					"lng":"102.823624",
+					"detail":""
+				}
+|put|       /put/history
+				แก้ไขประวัติการแจ้งซ่อมด้วย json
+				{
+					"his_num":"6",				* history number เลขระบุประวัติการแจ้งซ่อม
+					"number":"ab1234",			* เลขทะเบียนมอไซต์ต้องมีใน database ก่อน
+					"lat":"16.432194",
+					"lng":"102.823624",
+					"detail":"asdasd",
+					"price":"100",				* เป็นค่า double ควรจะมีค่าในช่องนี้
+					"status":"แจ้งซ่อม"			* แจ้งซ่อม / กำลังดำเนินการ / เสร็จสิ้น
+				}
+|delete|    /delete/history
+				ลบประวัติการแจ้งซ่อมด้วย json
+				{
+					"his_num":"6"				* history number เลขระบุประวัติการแจ้งซ่อม
+				}
+|delete|    /delete/current/history
+				ลบการแจ้งซ่อมล่าสุดของ user ที่กำหนดด้วย json
+				{
+					"phone":"0800000001"		* เบอร์ลูกค้าต้องมีใน database ก่อน
+				}
+|post|       /insert/user
+				เพิ่มข้อมูล user
+				{
+					"phone":"",					* เบอร์มือถือห้ามซ้ำ
+					"name":""
+				}
+|put|       /update/user
+				แก้ไขข้อมูล user
+				{
+					"phone":"",					* เบอร์มือถือห้ามซ้ำ
+					"name":"",
+					"email":""
+				}
+|post|       /insert/bike
+				เพิ่มข้อมูลรถจักรยานยนต์และ user ที่เป็นเจ้าของ
+				{
+					"phone":"",					* เบอร์มือถือห้ามซ้ำ
+					"number":"",				* เลขทะเบียนรถห้ามซ้ำ
+					"brand":"",
+					"model":"",
+					"color":""
+				}
+|put|       /update/bike
+				แก้ไขข้อมูลรถจักรยานยนต์
+				{
+					"number":"",				* เลขทะเบียนรถ
+					"brand":"",
+					"model":"",
+					"color":""
+				}
+|put|       /delete/bike
+				ลบรถจักรยานยนต์และความเป็นเจ้าของ
+				{
+					"phone":"",					* เบอร์มือถือห้ามซ้ำ
+					"number":""					* เลขทะเบียนรถห้ามซ้ำ
+				}
+|get|		/
+				เว็บหลัก
+|get|		/search/user?search=
+				ค้นหา user จาก key word search
+|get|		/search/history?search=&status=
+				ค้นหาประวัติการแจ้งซ่อมจาก key word search ที่มี status ที่ต้องการ

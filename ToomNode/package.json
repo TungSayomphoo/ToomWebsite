@@ -1,0 +1,32 @@
+{
+  "name": "devahoy-nodejs",
+  "version": "0.0.1",
+  "description": "Devahoy Node.js with Express 4 Tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "testapi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "E:\\testapi"
+  },
+  "keywords": [
+    "testapi"
+  ],
+  "author": "Tung",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "https-server": "^0.1.2",
+    "mysql": "^2.16.0",
+    "npm": "^6.4.1",
+    "omise": "^0.5.4",
+    "async": "^2.6.1",
+    "run-async": "^2.3.0",
+    "google-drive": "0.0.8",
+    "googleapis": "^34.0.0",
+    "sql-to-json": "^1.5.0"
+  }
+}

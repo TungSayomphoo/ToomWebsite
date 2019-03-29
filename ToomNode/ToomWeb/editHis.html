@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="styles/style.css" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <title>ตุ่มมอไซต์ เว็บแอพพลิเคชัน</title>
+    </head>
+    <body>
+        <ul class="navi">
+            <div class="header"><!--<img id="headLogo" src="/ToomWeb/images/toomlogo3.png">--><h1>ตุ่มมอไซต์ เว็บแอพพลิเคชัน</h1></div>
+            <li class="navi"><a href="customer.html">ข้อมูลลูกค้า</a></li>
+            <li class="navi"><a href="phone.html">การแจ้งซ่อมใหม่</a></li>
+            <li class="navi"><a href="process.html">กำลังดำเนินการ</a></li>
+            <li class="navi"><a href="finish.html">การซ่อมที่เสร็จแล้ว</a></li>
+            <li class="navi"><a class="subActive">แก้ไขการแจ้งซ่อม</a></li>
+        </ul>
+
+        <div class="dropdown" style="float:left;">
+            <button onclick="myFunction()" class="dropbtn">
+                <div class="menu"></div>
+                <div class="menu"></div>
+                <div class="menu"></div>
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="customer.html">ข้อมูลลูกค้า</a>
+                <a href="phone.html">การแจ้งซ่อมใหม่</a>
+                <a href="process.html">กำลังดำเนินการ</a></li>
+                <a href="finish.html">การซ่อมที่เสร็จแล้ว</a></li>
+            </div>
+          </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div id="cardView"></div>
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <script src="script/editHis.js"></script>
+    </body>
+</html>
