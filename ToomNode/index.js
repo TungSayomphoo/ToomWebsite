@@ -57,7 +57,7 @@ app.use(function(req,res,next){
 });
 
 app.listen(port, function() {
-    console.log('toom api --version 0.2.7( + add current dateTime) on port ' + port);
+    console.log('toom api --version 0.3.0(  * fix |delete| /delete/current/history ) on port ' + port);
 });
 
 app.get('/getdate',function(req,res){
@@ -81,7 +81,7 @@ app.get('/getdate',function(req,res){
 });
 
 app.get('/api',function(req,res){
-    var data =  'toom api --version 0.2.7\n' + 
+    var data =  'toom api --version 0.3.0\n' + 
                 ' + add |get|       /alluser\n' +
                 ' + add |get|       /user?phone=\n' +
                 ' + add |get|       /user/bike?phone=\n' +
@@ -100,6 +100,7 @@ app.get('/api',function(req,res){
                 ' + add |get|       /allbike\n' +
                 ' + add |post|      /post/history\n' +
                 ' + add |put|       /put/history\n' +
+                ' + add |put|       /update/history/location\n' +
                 ' + add |delete|    /delete/history\n' +
                 ' + add |delete|    /delete/current/history\n' +
                 ' + add |post|      /insert/user\n' +
@@ -190,7 +191,7 @@ app.get('/user/bike',function(req,res){
 
 app.get('/allhis',function(req,res){    
     var data = {"Data":""};
-    res.locals.connection.query("select * from history natural join customer natural join bike order by his_date, his_time;",function(err, rows, fields){
+    res.locals.connection.query("select * from history natural join customer natural join bike order by his_date desc, his_time desc;",function(err, rows, fields){
         if (err) {
             data["Data"] = err;
             console.log(err);
@@ -210,7 +211,7 @@ app.get('/allhis',function(req,res){
 app.get('/allhis/status',function(req,res){    
     var status = req.query.status;
     var data = {"Data":""};
-    res.locals.connection.query("select * from history natural join customer natural join bike where status=? order by his_date, his_time;",[status],function(err, rows, fields){
+    res.locals.connection.query("select * from history natural join customer natural join bike where status=? order by his_date desc, his_time desc;",[status],function(err, rows, fields){
         if (err) {
             data["Data"] = err;
             console.log(err);
@@ -230,7 +231,7 @@ app.get('/allhis/status',function(req,res){
 app.get('/selecthis',function(req,res){ 
     var his_num = req.query.his_num;   
     var data = {"Data":""};
-    res.locals.connection.query("select * from history natural join customer natural join bike where his_num = ?;",[his_num],function(err, rows, fields){
+    res.locals.connection.query("select * from history natural join customer natural join bike where his_num = ? order by his_date desc;",[his_num],function(err, rows, fields){
         if (err) {
             data["Data"] = err;
             console.log(err);
@@ -250,7 +251,7 @@ app.get('/selecthis',function(req,res){
 app.get('/allhis/user',function(req,res){    
     var phone = req.query.phone;
     var data = {"Data":""};
-    res.locals.connection.query("select * from history natural join customer natural join bike where cus_phone=? order by his_date, his_time;",[phone],function(err, rows, fields){
+    res.locals.connection.query("select * from history natural join customer natural join bike where cus_phone=? order by his_date desc, his_time desc;",[phone],function(err, rows, fields){
         if (err) {
             data["Data"] = err;
             console.log(err);
@@ -409,7 +410,7 @@ app.get('/insert/history',function(req,res){
                 var his_num = max+1
                 var currentDate = getCurDate();
                 var currentTime = getCurTime();
-                res.locals.connection.query("INSERT INTO history VALUES (?, ?, ?, ?, ?, ?, ?, ?, '0', 'à¹à¸ˆà¹‰à¸‡à¸‹à¹ˆà¸­à¸¡');",[his_num,currentDate,currentTime,phone,number,lat,lng,detail],function(err, rows, fields){
+                res.locals.connection.query("INSERT INTO history VALUES (?, ?, ?, ?, ?, ?, ?, ?, '0', 'แจ้งซ่อม');",[his_num,currentDate,currentTime,phone,number,lat,lng,detail],function(err, rows, fields){
                     if (err) {
                         data["Data"] = err;
                         console.log(err);
@@ -515,7 +516,7 @@ app.post('/post/history',function(req,res){
                 var his_num = max+1
                 var currentDate = getCurDate();
                 var currentTime = getCurTime();
-                res.locals.connection.query("INSERT INTO history VALUES (?, ?, ?, ?, ?, ?, ?, ?, '0', 'à¹à¸ˆà¹‰à¸‡à¸‹à¹ˆà¸­à¸¡');",[his_num,currentDate,currentTime,phone,number,lat,lng,detail],function(err, rows, fields){
+                res.locals.connection.query("INSERT INTO history VALUES (?, ?, ?, ?, ?, ?, ?, ?, '0', 'แจ้งซ่อม');",[his_num,currentDate,currentTime,phone,number,lat,lng,detail],function(err, rows, fields){
                     if (err) {
                         data["Data"] = err;
                         console.log(err);
@@ -548,6 +549,28 @@ app.put('/put/history',function(req,res){
     var status = req.body.status;
     var data = {"Data":""};
     res.locals.connection.query("update history set bike_licence=?, lat=?, lng=?, detail=?, price=?, status=? where his_num=?;",[number,lat,lng,detail,price,status,his_num],function(err, rows, fields){
+        if (err) {
+            data["Data"] = err;
+            console.log(err);
+        } else {
+            if(rows.length != 0){
+                data["Data"] = rows;
+                res.json(data);
+            }else{
+                data["Data"] = 'No data Found..';
+                res.json(data);
+            }
+        }
+        res.locals.connection.end();
+    });
+});
+
+app.put('/update/history/location',function(req,res){
+    var his_num = req.body.his_num;
+    var lat = req.body.lat;
+    var lng = req.body.lng;
+    var data = {"Data":""};
+    res.locals.connection.query("update history set lat=?, lng=? where his_num=?;",[lat,lng,his_num],function(err, rows, fields){
         if (err) {
             data["Data"] = err;
             console.log(err);
@@ -634,11 +657,12 @@ app.post('/insert/bike',function(req,res){
     var model = req.body.model;
     var color = req.body.color;
     var data = {"Data":""};
-    var count
+    var count 
 
-    res.locals.connection.query("select count(bike_licence) as count from owner where cus_phone=?",[phone],function(err, rows, fields){
+    res.locals.connection.query("select count(bike_licence) as count from owner where cus_phone=?;",[phone],function(err, rows, fields){
         if (err) {
-            data["Data"] = err;
+            data["count"] = err;
+            res.json(data);
             console.log(err);
         } else {
             if(rows.length != 0){
@@ -649,6 +673,7 @@ app.post('/insert/bike',function(req,res){
                     number = phone + '-' + count
                 }
                 console.log(number);
+
                 res.locals.connection.query("INSERT INTO bike VALUES (?,?,?,?);",[number,brand,model,color],function(err, rows, fields){
                     if (err) {
                         data["Data"] = err;
@@ -656,35 +681,35 @@ app.post('/insert/bike',function(req,res){
                     } else {
                         if(rows.length != 0){
                             data["Data"] = rows;
-
+                            
                             res.locals.connection.query("INSERT INTO owner VALUES (?, ?);",[phone,number],function(err, rows, fields){
                                 if (err) {
-                                    data["Data"] = err;
+                                    data["Data2"] = err;
                                     res.json(data);
                                     console.log(err);
                                 } else {
                                     if(rows.length != 0){
-                                        data["Data"] = rows;
+                                        data["Data2"] = rows;
                                         res.json(data);
+                    
                                     }else{
-                                        data["Data"] = 'No data Found..';
+                                        data["Data2"] = 'No data Found..';
                                         res.json(data);
                                     }
                                 }
                             });
-
                         }else{
                             data["Data"] = 'No data Found..';
                             res.json(data);
                         }
                     }
                 });
+
             }else{
-                data["Data"] = 'No data Found..';
+                data["count"] = 'No data Found..';
                 res.json(data);
             }
         }
-        res.locals.connection.end();
     });
 });
 
@@ -810,7 +835,7 @@ app.get('/search/history',function(req,res){
     var status = req.query.status;
     var search = req.query.search;
     var data = {};
-    res.locals.connection.query("SELECT * from history natural join customer natural join bike where status=? and (cus_phone=? or cus_name=? or cus_email=? or bike_licence=? or bike_brand=? or bike_model=?)",[status,search,search,search,search,search,search],function(err, rows, fields){
+    res.locals.connection.query("SELECT * from history natural join customer natural join bike where status=? and (cus_phone=? or cus_name=? or cus_email=? or bike_licence=? or bike_brand=? or bike_model=?) order by his_date desc, his_time desc",[status,search,search,search,search,search,search],function(err, rows, fields){
         if (err) {
             data["Data"] = err;
             console.log(err);
@@ -830,7 +855,7 @@ app.get('/search/history',function(req,res){
 app.delete('/delete/current/history',function(req,res){    
     var phone = req.body.phone;
     var data = {"Data":""};
-    res.locals.connection.query("select * from history where cus_phone=? and his_num = (select min(his_num) from history where cus_phone=?)",[phone],function(err, rows, fields){
+    res.locals.connection.query("delete from history where cus_phone=? and his_num = (select max(his_num) from history where cus_phone=?);",[phone,phone],function(err, rows, fields){
         if (err) {
             data["Data"] = err;
             console.log(err);

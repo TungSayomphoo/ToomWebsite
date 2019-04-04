@@ -1,5 +1,5 @@
 var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
-
+            
             createCard();
 
             $(document).ready(function () {  

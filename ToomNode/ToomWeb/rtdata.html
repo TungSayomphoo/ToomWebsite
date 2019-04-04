@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+    <head>
+        <title>ตุ่มมอไซต์ เว็บแอพพลิเคชัน</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="styles/newStyle.css" rel="stylesheet" type="text/css">
+
+        <!--bootstrap 3-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyA-tqAG9Kl4x_brmRA6jPkC_qULOZGjUYY",
+                authDomain: "toombike-41fdf.firebaseapp.com",
+                databaseURL: "https://toombike-41fdf.firebaseio.com",
+                projectId: "toombike-41fdf",
+                storageBucket: "toombike-41fdf.appspot.com",
+                messagingSenderId: "366891943439"
+                };
+
+            /*var config = {
+                apiKey: "AIzaSyAfjUmsgGx8mIrJKmOThfXYb7D_PR30kyU",
+                authDomain: "testapp-eef3d.firebaseapp.com",
+                databaseURL: "https://testapp-eef3d.firebaseio.com",
+                projectId: "testapp-eef3d",
+                storageBucket: "testapp-eef3d.appspot.com",
+                messagingSenderId: "832270786941"
+                };*/
+            firebase.initializeApp(config);
+        </script>
+    </head>
+    <body>
+        <p id="para">555</p>
+        <button id="write">write</button>
+        <script>
+            var databaseRef = firebase.database().ref('notification/');
+            var text
+            databaseRef.once('value',function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                    var childKey = childSnapshot.key;
+                    var childData = childSnapshot.val();
+
+                    text += childKey + '\n'
+                })
+                $("#para").text(text)
+                console.log(text)
+            })
+
+            $(document).ready(function () {  
+                $("#write").click(function () {writeNewPost()});  
+            });
+
+            function writeNewPost() {
+                var newPostKey = firebase.database().ref().child('posts').push().key;
+
+                var postData = {
+                    detail: "d_test",
+                    location: {
+                        lat: "16.4602263",
+                        lng: "102.822725"
+                    },
+                    model: "m_test",
+                    sign: "s_test",
+                    textNoti: "t_test",
+                    uid: newPostKey
+                };
+                console.log(postData)
+
+                // Write the new post's data simultaneously in the posts list and the user's post list.
+                var updates = {};
+                updates['/notification/' + newPostKey] = postData;
+                //updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+
+                return firebase.database().ref().update(updates);
+            }
+
+           
+        </script>
+    </body>
+</html>

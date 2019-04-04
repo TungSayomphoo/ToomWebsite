@@ -1,5 +1,5 @@
-window.lat = 37.090240 //16.4602
-window.lng = -95.712891 //102.823
+window.lat = 16.4602 //37.090240
+window.lng = 102.823 //-95.712891
 
 var prevLat
 var prevLng
@@ -28,7 +28,7 @@ function updatePosition(position) {
       window.lng = position.coords.longitude;
       posiChange = true
 
-      console.log(count + ';' + prevLat + ' ' + prevLng + ' : ' + window.lat + ' ' + window.lng + ' ' +position)
+      console.log(count + ';' + prevLat + ' ' + prevLng + ' : ' + window.lat + ' ' + window.lng + ' ' +posiChange)
     }
 }
 

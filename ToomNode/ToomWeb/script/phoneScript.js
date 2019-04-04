@@ -1,5 +1,24 @@
 var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
 
+/*function initMap() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+            };
+            console.log(pos)
+        }, function() {
+            handleLocationError();
+        });
+    } else {
+        handleLocationError();
+    }
+}
+
+function handleLocationError() {
+    console.log('error')
+}*/
             createCard();
 
             var currentdatetest = new Date(); 
@@ -43,6 +62,11 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                             count++;
                             var dateData = data[i].his_date;
                             var dateSplit = dateData.split('T', 1);
+                            var price = data[i].price
+
+                            if (price == 0) {
+                                price = 'ยังไม่กำหนดราคา'
+                            }
                             
                             /*card += '<div class="card" id="his' + data[i].his_num + '"  onclick="editDetail(0' + data[i].his_num + ')">' +
                                 '<span><p>' + dateSplit + ' ' + data[i].his_time + '</p></span><hr>' +
@@ -78,7 +102,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                                     '<td><ul><li>วันที่ : ' + dateSplit + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td>' +
                                     '<td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td>' +
                                     '<td><ul><li>เลขทะเบียนรถ : ' + data[i].bike_licence + '</li><li>ยี่ห้อ : ' + data[i].bike_brand + '</li><li>รุ่น : ' + data[i].bike_model + '</li><li>สี : ' + data[i].bike_color + '</li></ul></td>' +
-                                    '<td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + data[i].price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td>' +
+                                    '<td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td>' +
                                     '<td><a id="td' + data[i].his_num + '" onClick="editDetail(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a></td>' +
                                     '</tr>'
 
@@ -86,8 +110,8 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                                     '<tr> <th>วันเวลา</th>            <td><ul><li>วันที่ : ' + dateSplit + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td></tr>' +
                                     '<tr> <th>ข้อมูลลูกค้า</th>         <td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td></tr>' +
                                     '<tr> <th>ข้อมูลรถจักรยานยนต์</th>  <td><ul><li>เลขทะเบียนรถ : ' + data[i].bike_licence + '</li><li>ยี่ห้อ : ' + data[i].bike_brand + '</li><li>รุ่น : ' + data[i].bike_model + '</li><li>สี : ' + data[i].bike_color + '</li></ul></td></tr>' +
-                                    '<tr id="reqTr' + data[i].his_num + '" > <th>ข้อมูลการแจ้งซ่อม</th>    <td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + data[i].price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td></tr>' +
-                                    '<tr id="editTr' + data[i].his_num + '" > <th></th>                  <td><a id="td' + data[i].his_num + '" onClick="editDetailPhone(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a></td></tr>' +
+                                    '<tr id="reqTr' + data[i].his_num + '" > <th>ข้อมูลการแจ้งซ่อม</th>    <td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td></tr>' +
+                                    '<tr id="editTr' + data[i].his_num + '" > <th></th>                 <td><a id="td' + data[i].his_num + '" onClick="editDetailPhone(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a></td></tr>' +
                                     '</td>'
                         }
                         card += '</table>'
@@ -100,7 +124,6 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
             };
 
             function searchCard(search_val) {
-                console.log(search_val)
                 $.get("https://toombike.kku.ac.th/search/history?search=" + search_val + "&status=แจ้งซ่อม", function(json){
                     var card = ''
                     var phone = ''
@@ -123,42 +146,17 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                             count++;
                             var dateData = data[i].his_date;
                             var dateSplit = dateData.split('T', 1);
-                            
-                            /*card += '<div class="card" id="his' + data[i].his_num + '"  onclick="editDetail(0' + data[i].his_num + ')">' +
-                                '<span><p>' + dateSplit + ' ' + data[i].his_time + '</p></span><hr>' +
-                                '<table class="cardTable"><tr>' + 
-                                '<td class="numberTd" align="center"></td>' +
-                                '<td class="cardTd"><ul><li>' + data[i].cus_name + '</li><li>'  + data[i].cus_phone + '</li><li>'  + data[i].cus_email + '</li></ul></td>' +
-                                '<td class="cardTd"><ul><li>' + data[i].bike_licence + '</li><li>' + data[i].bike_brand + '</li><li>'  + data[i].bike_model + '</li><li>'  + data[i].bike_color + '</li></ul></td>' +
-                                '<td class="cardTd">' + data[i].status + '</td></tr>' +
-                                '<tr><td>สถานที่ : </td><td><p><a href="reGeocoding.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '">แสดงบนแผนที่' + '</a></p></td></tr>' + 
-                                '<tr><td>รายละเอียด : </td><td>' + data[i].detail + '</td>' +
-                                '<td>ราคาซ่อม : </td><td>' + data[i].price + '</td></tr></table></div>';*/
-                            
-                            /*card += '<div class="card" id="his' + data[i].his_num + '"  onclick="editDetail(0' + data[i].his_num + ')">' +
-                                '<table class="cardTable"><tr>' + 
-                                '<td class="numberTd" align="center">' + dateSplit + '<br>' + data[i].his_time + '</td>' +
-                                '<td class="cardTd"><ul><li>' + data[i].cus_name + '</li><li>'  + data[i].cus_phone + '</li></ul></td>' +
-                                '<td class="cardTd"><ul><li>' + data[i].bike_licence + '</li><li>' + data[i].bike_brand + '</li><li>'  + data[i].bike_model + '</li><li>'  + data[i].bike_color + '</li></ul></td>' +
-                                '<td class="cardTd">' + data[i].status + '</td></tr>' +
-                                '</table></div>';*/
+                            var price = data[i].price
 
-                            /*card += '<div class="card" id="his' + data[i].his_num + '"  onclick="editDetail(0' + data[i].his_num + ')">' +
-                                '<span><p>' + dateSplit + ' ' + data[i].his_time + '</p></span><hr>' +
-                                '<table class="cardTable"><tr>' + 
-                                '<td><ul><li>' + data[i].cus_name + '</li><li>'  + data[i].cus_phone + '</li></ul></td>' +
-                                '<td><ul><li>' + data[i].bike_licence + '</li><li>' + data[i].bike_brand + '</li><li>'  + data[i].bike_model + '</li><li>'  + data[i].bike_color + '</li></ul></td></tr>' +
-                                '<tr><td>สถานะ : </td><td class="cardTd">' + data[i].status + '</td></tr>' +
-                                '<tr><td>สถานที่ : </td><td><p><a href="reGeocoding.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '">แสดงบนแผนที่' + '</a></p></td></tr>' +
-                                '<tr><td>รายละเอียด : </td><td>' + data[i].detail + '</td></tr>' +
-                                '<tr><td>ราคาซ่อม : </td><td>' + data[i].price + '</td></tr>' +
-                                '</table></div>';*/
+                            if (price == 0) {
+                                price = 'ยังไม่กำหนดราคา'
+                            }
 
                             card += '<tr id="tr' + data[i].his_num + '">' +
                                     '<td><ul><li>วันที่ : ' + dateSplit + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td>' +
                                     '<td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td>' +
                                     '<td><ul><li>เลขทะเบียนรถ : ' + data[i].bike_licence + '</li><li>ยี่ห้อ : ' + data[i].bike_brand + '</li><li>รุ่น : ' + data[i].bike_model + '</li><li>สี : ' + data[i].bike_color + '</li></ul></td>' +
-                                    '<td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + data[i].price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td>' +
+                                    '<td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td>' +
                                     '<td><a id="td' + data[i].his_num + '" onClick="editDetail(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a></td>' +
                                     '</tr>'
 
@@ -166,7 +164,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                                     '<tr> <th>วันเวลา</th>            <td><ul><li>วันที่ : ' + dateSplit + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td></tr>' +
                                     '<tr> <th>ข้อมูลลูกค้า</th>         <td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td></tr>' +
                                     '<tr> <th>ข้อมูลรถจักรยานยนต์</th>  <td><ul><li>เลขทะเบียนรถ : ' + data[i].bike_licence + '</li><li>ยี่ห้อ : ' + data[i].bike_brand + '</li><li>รุ่น : ' + data[i].bike_model + '</li><li>สี : ' + data[i].bike_color + '</li></ul></td></tr>' +
-                                    '<tr id="reqTr' + data[i].his_num + '" > <th>ข้อมูลการแจ้งซ่อม</th>    <td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + data[i].price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td></tr>' +
+                                    '<tr id="reqTr' + data[i].his_num + '" > <th>ข้อมูลการแจ้งซ่อม</th>    <td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td></tr>' +
                                     '<tr id="editTr' + data[i].his_num + '" > <th></th>                  <td><a id="td' + data[i].his_num + '" onClick="editDetailPhone(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a></td></tr>' +
                                     '</td>'
                         }
@@ -376,8 +374,13 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                             count++;
                             var dateData = data[i].his_date;
                             var dateSplit = dateData.split('T', 1);
+                            var price = data[i].price
 
-                            card += '<ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + data[i].price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i>แสดงบนแผนที่' + ' </a></li></ul>'
+                            if (price == 0) {
+                                price = 'ยังไม่กำหนดราคา'
+                            }
+
+                            card += '<ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i>แสดงบนแผนที่' + ' </a></li></ul>'
                             editTdHander += '<a id="td' + data[i].his_num + '" onClick="editDetail(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a>'
                         }
                     }
@@ -416,13 +419,4 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 window.location.reload();
             }
 
-            function getAddr(lat, lng) {
-                var addr
-                $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&key=" + googleAPIKey, function(json){
-                    var results = json['results']
-                    console.log(results[0].formatted_address)
-                    addr = results[0].formatted_address;
-                    return addr
-                });
-                return addr
-            };
+            
