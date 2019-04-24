@@ -1,4 +1,5 @@
 var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
+var userLogin
 
 /*function initMap() {
     if (navigator.geolocation) {
@@ -19,6 +20,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
 function handleLocationError() {
     console.log('error')
 }*/
+detectLogin()
             createCard();
 
             var currentdatetest = new Date(); 
@@ -413,7 +415,7 @@ function handleLocationError() {
                     $(infoTd).html(card);
                     $(editTd).html(editTdHander);
                 });
-            }  
+            } 
 
             function reload_page() {
                 window.location.reload();

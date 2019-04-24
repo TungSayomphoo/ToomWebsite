@@ -62,6 +62,30 @@
     overflow-y: scroll;
 }
 
+#grayDot {
+    height: 9px;
+    width: 9px;
+    background-color: gray;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+#yellowDot {
+    height: 9px;
+    width: 9px;
+    background-color: yellow;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+#greenDot {
+    height: 9px;
+    width: 9px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+}
+
 @media only screen and (max-width: 768px) {
     #cardView {
         display: none;

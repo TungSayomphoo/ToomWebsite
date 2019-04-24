@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>ตุ่มมอไซต์ เว็บแอพพลิเคชัน</title>
+        <link rel="shortcut icon" href="https://toombike.kku.ac.th/images/toomlogo3.png" type="image/png">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -10,12 +12,12 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <title>ตุ่มมอไซต์ เว็บแอพพลิเคชัน</title>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
+                    <img src="https://toombike.kku.ac.th/images/toomlogo3.png" class="img-responsive img-circle" style="display:inline" alt="Toom" width="50" height="50">
                     <a class="navbar-brand" href="#">toombike.kku.ac.th</a>
                 </div>
                 <ul class="nav navbar-nav">
@@ -34,6 +36,10 @@
                       </div>
                     </div>
                   </form>
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a id="username" href="#"><span class="glyphicon glyphicon-user"></span></a></li>
+                      <li><a onClick="logout(); return false;" href="fallback.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    </ul>
             </div>
         </nav>
 
@@ -64,6 +70,7 @@
 
         <div id="cardView"></div>
         <div id="cusphoneView"></div>
+        <script src="script/loginLogout.js"></script>
         <script src="script/customerScript.1.js"></script>
     </body>
 </html>

@@ -12,8 +12,9 @@ function updatePosition(position) {
     if (position) {
         window.lat = position.coords.latitude;
         window.lng = position.coords.longitude;
-        //console.log(window.lat + ',' + window.lng + ':' + navigator.userAgent)
-        firebase.database().ref('currentlocation/' + 'web').update({
+        console.log(window.lat + ',' + window.lng + ':' + userLogin)
+        firebase.database().ref('currentlocation/' + userLogin).update({
+            user: userLogin,
             lat: window.lat,
             lng: window.lng
         });

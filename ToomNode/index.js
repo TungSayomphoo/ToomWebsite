@@ -7,12 +7,20 @@ API :   |API name           |method     |Discription
 */
 
 var express = require('express');
-var app = express();
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 80;
 var mysql = require('mysql');
 var path = require('path');
 require('datejs')
+
+var app = express();
+app.use(express.static('ToomWeb'))
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -57,7 +65,11 @@ app.use(function(req,res,next){
 });
 
 app.listen(port, function() {
-    console.log('toom api --version 0.3.0(  * fix |delete| /delete/current/history ) on port ' + port);
+    console.log('toom server --version 0.3.1(  * test login & express image v2.0 ) on port ' + port);
+});
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/ToomWeb/login.html'));
 });
 
 app.get('/getdate',function(req,res){
@@ -807,10 +819,6 @@ app.delete('/delete/bike',function(req,res){
     });
 });
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/ToomWeb/phone.html'));
-});
-
 app.get('/search/user',function(req,res){
     var search = req.query.search;
     var data = {};
@@ -896,3 +904,53 @@ function getCurTime() {
     var currentTime = hour7 + ':' + minsec;
     return currentTime;
 }
+
+app.post('/auth', function(req, res) {
+	var username = req.body.username;
+    var password = req.body.password;
+    var data = {}
+    
+    if (username && password) {
+		res.locals.connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(err, rows, fields){
+            if (rows.length > 0) {
+                req.session.loggedin = true;
+                req.session.username = username;
+                data.status = "success";
+                data.login = req.session.loggedin
+                res.json(data);
+			} else {
+                req.session.loggedin = false;
+                req.session.username = username;
+                data.status = "incorrect";
+                res.json(data);
+			}			
+			res.end();
+            res.locals.connection.end();
+        });
+	} else {
+        req.session.loggedin = false;
+		req.session.username = username;
+        data.status = "novalue";
+        res.json(data);
+        res.end();
+    }
+});
+
+app.get('/home', function(req, res) {
+    var data = {}
+	if (req.session.loggedin) {
+        data.loggedin = "true";
+        data.user = req.session.username;
+        res.json(data)
+	} else {
+		data.loggedin = "false";
+        data.user = req.session.username;
+        res.json(data)
+	}
+	res.end();
+});
+
+app.get('/logout', function(req, res) {
+    req.session.loggedin = false;
+	res.end();
+});
