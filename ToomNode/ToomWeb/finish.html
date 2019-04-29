@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ตุ่มมอไซต์ เว็บแอพพลิเคชัน</title>
+        <title>ตุ่ม มอไซค์ เว็บแอพพลิเคชัน</title>
         <link rel="shortcut icon" href="https://toombike.kku.ac.th/images/toomlogo3.png" type="image/png">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,15 +24,14 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <img src="https://toombike.kku.ac.th/images/toomlogo3.png" class="img-responsive img-circle" style="display:inline" alt="Toom" width="50" height="50">
-                    <a class="navbar-brand" href="#">toombike.kku.ac.th</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a href="customer.html">ข้อมูลลูกค้า</a></li>
                     <li><a href="phone.html">การแจ้งซ่อมใหม่</a></li>
                     <li><a href="process.html">กำลังดำเนินการ</a></li>
                     <li class="active"><a href="finish.html"><span id="greenDot"></span> การซ่อมที่เสร็จแล้ว</a></li>
+                    <li><a href="customer.html">ข้อมูลลูกค้า</a></li>
                 </ul>
-                <form class="navbar-form navbar-left" action="/action_page.php">
+                <form class="navbar-form navbar-left" action="/finishSearch1.html">
                     <div class="input-group">
                       <input type="text" class="form-control" placeholder="ค้นหาด้วยชื่อลูกค้า เบอร์โทรศัพท์ หรือเลขทะเบียนรถ" name="search">
                       <div class="input-group-btn">
@@ -43,7 +42,7 @@
                     </div>
                   </form>
                   <div class="dropdown">
-                      <button class="btn btn-warning dropdown-toggle navbar-btn" type="button" data-toggle="dropdown">การแจ้งเตือนจากลูกค้า <span class="glyphicon glyphicon-bell"></span> <span id="notiBadge" class="badge">0</span></button>
+                      <button class="btn btn-warning dropdown-toggle navbar-btn" type="button" data-toggle="dropdown">การแจ้งเตือนจากลูกค้า <span class="glyphicon glyphicon-bell"></span> <span id="notiBadge" class="label label-danger">...</span></button>
                       <ul id="notiMenu" class="dropdown-menu">
                         <li><a href="#">กำลังโหลดข้อมูลการแจ้งเตือน...</a></li>
                       </ul>
@@ -57,41 +56,49 @@
 
         <nav class="navbar2 navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
-                <div class="dropdown">
-                  <button class="btn btn-primary dropdown-toggle navbar-btn" type="button" data-toggle="dropdown">การซ่อมที่เสร็จแล้ว
-                  <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="customer.html">ข้อมูลลูกค้า</a></li>
-                    <li><a href="phone.html">การแจ้งซ่อมใหม่</a></li>
-                    <li><a href="process.html">กำลังดำเนินการ</a></li>
-                    <li><a href="finish.html">การซ่อมที่เสร็จแล้ว</a></li>
-                  </ul>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-warning dropdown-toggle navbar-btn" type="button" data-toggle="dropdown">การแจ้งเตือนจากลูกค้า <span class="glyphicon glyphicon-bell"></span> <span id="notiBadge2" class="badge">0</span></button>
+                <ul class="nav nav-tabs">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: lightcoral;"><span id="greenDot"></span> การซ่อมที่เสร็จแล้ว <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="phone.html">การแจ้งซ่อมใหม่</a></li>
+                      <li><a href="process.html">กำลังดำเนินการ</a></li>
+                      <li><a href="finish.html">การซ่อมที่เสร็จแล้ว</a></li>     
+                      <li><a href="customer.html">ข้อมูลลูกค้า</a></li>                   
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                      <a id="username2" class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: lightcoral;"></a>
+                      <ul class="dropdown-menu">
+                          <li><a onClick="logout(); return false;" href="fallback.html" style="color: lightcoral;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>                   
+                      </ul>
+                    </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: lightcoral;">การแจ้งเตือนจากลูกค้า <span class="glyphicon glyphicon-bell"></span> <span id="notiBadge2" class="label label-danger">0</span> <span class="caret"></span></a>
                     <ul id="notiMenu2" class="dropdown-menu">
                       <li><a href="#">กำลังโหลดข้อมูลการแจ้งเตือน...</a></li>
                     </ul>
-                  </div>
-                <form class="navbar-form navbar-left" action="/action_page.php">
+                  </li>
+                </ul>
+                <form class="navbar-form navbar-left" action="/finishSearch2.html">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="ค้นหาด้วยชื่อลูกค้า เบอร์โทรศัพท์ หรือเลขทะเบียนรถ" name="search">
+                    <input type="text" class="form-control" placeholder="ค้นหาด้วยชื่อลูกค้า เบอร์โทรศัพท์ หรือเลขทะเบียนรถ" name="phone_search">
                     <div class="input-group-btn">
-                      <button class="btn btn-default" id="search_button" type="button">
+                      <button class="btn btn-default" id="phone_search_button" type="button">
                         <i class="glyphicon glyphicon-search"></i>
                       </button>
                     </div>
                   </div>
                 </form>
             </div>
-        </nav>
+          </nav>
 
         <div id="cardView"></div>
         <div id="phoneView"></div>
-        <script src="script/loginLogout.js"></script>
-        <script src="script/finishScript.js"></script>
         <script src="script/initFirebase.js"></script>
         <script src="script/notification.js"></script>
+        <script src="script/loginLogout.js"></script>
+        <script src="script/getMonth.js"></script>
+        <script src="script/finishScript.js"></script>
         <script src="script/getCurLocation.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8&callback=initialize"></script>
     </body>

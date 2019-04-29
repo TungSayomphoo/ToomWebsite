@@ -28,7 +28,7 @@ function updatePosition(position) {
       window.lng = position.coords.longitude;
       posiChange = true
 
-      console.log(count + ';' + prevLat + ' ' + prevLng + ' : ' + window.lat + ' ' + window.lng + ' ' +posiChange)
+      //console.log(count + ';' + prevLat + ' ' + prevLng + ' : ' + window.lat + ' ' + window.lng + ' ' +posiChange)
     }
 }
 
@@ -75,13 +75,23 @@ var initialize = function() {
         animation: google.maps.Animation.DROP,
         icon: {url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"}
     });
-    var toomIW = new google.maps.InfoWindow({content: 'ร้านตุ่มมอไซต์'});
+    var toomIW = new google.maps.InfoWindow(
+      {content: '<div><table><tr>' + 
+                '<td><img src="https://toombike.kku.ac.th/images/toomview1.jpg" class="img-responsive img-circle" style="display:inline" alt="Toom" width="150" height="150"></td>' + 
+                '<td><h4>ร้านตุ่มมอไซต์</h4>' + 
+                '<p>56/65 ถนนกัลปพฤกษ์ ตำบลในเมือง อำเภอเมือง จังหวัดขอนแก่น. 40000</p>' + 
+                '<p>facebook : <a href="https://www.facebook.com/%E0%B8%95%E0%B8%B8%E0%B9%88%E0%B8%A1-%E0%B8%A1%E0%B8%AD%E0%B9%84%E0%B8%8B%E0%B8%84%E0%B9%8C-1714442265300257/">ตุ่ม มอไซค์</a></p>' +
+                '<p>เบอร์โทรศัพท์ : 064-1751965</p>' +
+                '</td></tr></table></div>'}
+    );
 
     customerIW.open(map, customerMark);
+    toomIW.open(map, Toommark);
 
     mark.addListener('click', function() {geocodeLatLng(geocoder, map, infowindow, markIW2)});
     customerMark.addListener('click', function() {geocodeLatLng(geocoder, map, infowindow, customerMark)});
-    Toommark.addListener('click', function() {geocodeLatLng(geocoder, map, infowindow, toomIW)});
+    Toommark.addListener('click', function() {toomIW.open(map, Toommark);});
+
 
     if (posiChange == true) {
       /*console.log(posiChange)

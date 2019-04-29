@@ -1,3 +1,22 @@
+.navbar ,.navbar2 ,.table ,.table2 ,.dropdown-menu {
+    font-size: 17px;
+}
+
+#notiBadge {
+    font-size: 14px;
+}
+
+.table ,.table2 {
+    margin-top: 70px;
+}
+
+.table2{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.table tr:nth-child(even) {background-color: #E6D8C1;}
+
 #cardView {
     margin-left: 50px;
     margin-right: 50px;
@@ -13,10 +32,6 @@
 }
 
 .pNodata {
-    margin-top: 70px;
-}
-
-.table {
     margin-top: 70px;
 }
 
@@ -81,9 +96,19 @@
 #greenDot {
     height: 9px;
     width: 9px;
-    background-color: green;
+    background-color: lightgreen;
     border-radius: 50%;
     display: inline-block;
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px)  {
+    .navbar {
+        display: inline;
+    }
+
+    .navbar2 {
+        display: inline;
+    }
 }
 
 @media only screen and (max-width: 768px) {
@@ -95,10 +120,11 @@
         display: block;
         margin-left: 5px;
         margin-right: 5px;
+        margin-top: 150px;
     }
 
     #cusphoneView {
-        margin-top: 100px;
+        margin-top: 150px;
         margin-left: 0px;
         margin-right: 0px;
     }
@@ -118,7 +144,7 @@
         margin: auto;
     }
 
-    .table {
+    .table ,.table2 {
         margin-top: 90px;
     }
 

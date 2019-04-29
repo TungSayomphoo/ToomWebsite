@@ -54,7 +54,8 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                             var phone3 = phone2[1];
 
                             var dateData = data[i].his_date;
-                            var dateSplit = dateData.split('T', 1);
+                             var dateSplittest = dateData.split('T');
+                            var dateSplit2 = dateSplittest[0].split('-');
 
                             var pickUp
                             var process
@@ -79,7 +80,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                             }
     
                             card += '<div class="card" id="his' + data[i].his_num + '" >' +
-                                '<span><p>' + dateSplit + ' ' + data[i].his_time + '</p></span><hr>' +
+                                '<span><p>' + dateSplit2[2] + ' ' + getMonth(dateSplit2[1]) + ' พ.ศ. ' + getBE(dateSplit2[0]) + ' ' + data[i].his_time + '</p></span><hr>' +
                                 '<table class="cardTable"><tr>' + 
                                 '<td class="numberTd" align="center"></td>' +
                                 '<td class="cardTd"><ul><li>' + data[i].cus_name + '</li><li>' + data[i].cus_phone + '</li><li>'  + data[i].cus_email + '</li></ul></td>' +

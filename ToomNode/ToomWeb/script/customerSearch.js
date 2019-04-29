@@ -1,18 +1,25 @@
 var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
 
             detectLogin()
-            createCard();
+            initCus();
 
             $(document).ready(function () {  
                 $('[data-toggle="tooltip"]').tooltip(); 
                 $("#search_button").click(function () {  
                     searchCard(); 
+                });
+                $("#phone_search_button").click(function () {  
+                    phoneSearchCard();
                 });  
             });
 
-            function createCard() {
-                $.get("https://toombike.kku.ac.th/alluser", function(json){
+            function initCus() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const search_val = urlParams.get('search');
+                $.get("https://toombike.kku.ac.th/search/user?search=" + search_val, function(json){
                     var card = '';
+                    var preData = ''
+                    var currentData = ''
                     var data = json['Data']
                     if ( data == 'No data Found..') {
                         card += '<p>ไม่มีประวัติการแจ้งซ่อมในขณะนี้</p>';
@@ -22,45 +29,54 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                                 '<th>ข้อมูลรถจักรยานยนต์</th>' +
                                 '<th></th></tr></thead>';
                         for (var i = 0; i < data.length; i++) {
+                            currentData = data[i].cus_phone
+                            if (preData == currentData) {
+                                preData = data[i].cus_phone
+                                console.log(preData + ':' + currentData)
+                            } else {
+                                card += '<tr id="tr' + data[i].cus_phone + '">' +
+                                '<td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td>' +
+                                '<td id="user' + data[i].cus_phone + '"></td>' +
+                                '<td><a class="addDelete" id="' + data[i].cus_phone + '" onClick="addBikeConsole(this); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> เพิ่มลดรถจักรยานยนต์ </a></td>' +
+                                '</tr>'
+                        
+                                $.get("https://toombike.kku.ac.th/user/bike?phone=" + encodeURIComponent(data[i].cus_phone) , function(json){
+                                    var card2 = ''
+                                    var cusData = json['Data']
+                                    var userData = json['user']
+                                    var cusphone3 = userData[0].cus_phone
+                                    var count = 0
+                                    //console.log(cusphone3)
+
+                                    if ( cusData == 'No data Found..') {
+                                        card2 += '<p>ไม่มีรถจักรยานยนต์</p>'
+                                    } else {
+                                        card2 += '</ul>'
+                                        for (var j = 0; j < cusData.length; j++) { 
+                                            /*var cusphone = cusData[j].cus_phone
+                                            var cusphone2 = cusphone.split('+66');*/
+
+                                            card2 +=    '<li id="user' + cusphone3 + 'bike' + count + '">หมายเลขทะเบียน : ' + cusData[j].bike_licence + 
+                                                        '<br>ยี่ห้อ : ' + cusData[j].bike_brand + 
+                                                        '<br>รุ่น : ' + cusData[j].bike_model + 
+                                                        '<br>สี : ' + cusData[j].bike_color + 
+                                                        '<br><a id="' + cusphone3 + 'bike' + count + '" onclick="editDetail(this, \'' + cusData[j].bike_licence + '\', \'' + cusData[j].bike_brand + '\', \'' + cusData[j].bike_model + '\', \'' + cusData[j].bike_color + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขข้อมูลรถจักรยานยนต์ </a>' +
+                                                        '</li><br>'
+                                            count++
+                                        }
+                                        card2 += '</ul>'
+                                    }
+                                    $('#user' +  cusphone3).append(card2);
+                                });
+                                preData = data[i].cus_phone
+                                console.log(preData + ':' + currentData)
+                            }
                             /*var phoneNum = data[i].cus_phone
                             var phone2 = phoneNum.split('+66');
                             var phone3 = phone2[1];*/
                             //console.log(data[i].cus_phone)
     
-                            card += '<tr id="tr' + data[i].cus_phone + '">' +
-                                    '<td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td>' +
-                                    '<td id="user' + data[i].cus_phone + '"></td>' +
-                                    '<td><a class="addDelete" id="' + data[i].cus_phone + '" onClick="addBikeConsole(this); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> เพิ่มลดรถจักรยานยนต์ </a></td>' +
-                                    '</tr>'
-                            
-                            $.get("https://toombike.kku.ac.th/user/bike?phone=" + encodeURIComponent(data[i].cus_phone) , function(json){
-                                var card2 = ''
-                                var cusData = json['Data']
-                                var userData = json['user']
-                                var cusphone3 = userData[0].cus_phone
-                                var count = 0
-                                //console.log(cusphone3)
-
-                                if ( cusData == 'No data Found..') {
-                                    card2 += '<p>ไม่มีรถจักรยานยนต์</p>'
-                                } else {
-                                    card2 += '</ul>'
-                                    for (var j = 0; j < cusData.length; j++) { 
-                                        /*var cusphone = cusData[j].cus_phone
-                                        var cusphone2 = cusphone.split('+66');*/
-
-                                        card2 +=    '<li id="user' + cusphone3 + 'bike' + count + '">หมายเลขทะเบียน : ' + cusData[j].bike_licence + 
-                                                    '<br>ยี่ห้อ : ' + cusData[j].bike_brand + 
-                                                    '<br>รุ่น : ' + cusData[j].bike_model + 
-                                                    '<br>สี : ' + cusData[j].bike_color + 
-                                                    '<br><a id="' + cusphone3 + 'bike' + count + '" onclick="editDetail(this, \'' + cusData[j].bike_licence + '\', \'' + cusData[j].bike_brand + '\', \'' + cusData[j].bike_model + '\', \'' + cusData[j].bike_color + '\')"><i class="glyphicon glyphicon-pencil"></i> แก้ไขข้อมูลรถจักรยานยนต์ </a>' +
-                                                    '</li><br>'
-                                        count++
-                                    }
-                                    card2 += '</ul>'
-                                }
-                                $('#user' +  cusphone3).append(card2);
-                            });
+                           
                         }
                         card += '</table>'
                     }
@@ -68,8 +84,78 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 });
             };
 
-            function searchCard(search_val) {
-                var search_val =  $('#search').val();
+            function searchCard() {
+                var search_val =  $('[name="search"]').val();
+                $.get("https://toombike.kku.ac.th/search/user?search=" + search_val, function(json){
+                    var card = '';
+                    var preData = ''
+                    var currentData = ''
+                    var data = json['Data']
+                    if ( data == 'No data Found..') {
+                        card += '<p>ไม่มีประวัติการแจ้งซ่อมในขณะนี้</p>';
+                    } else {
+                        card += '<table class="table table-hover table-striped"><thead><tr>' +
+                                '<th>ข้อมูลลูกค้า</th>' +
+                                '<th>ข้อมูลรถจักรยานยนต์</th>' +
+                                '<th></th></tr></thead>';
+                        for (var i = 0; i < data.length; i++) {
+                            currentData = data[i].cus_phone
+                            if (preData == currentData) {
+                                preData = data[i].cus_phone
+                                console.log(preData + ':' + currentData)
+                            } else {
+                                card += '<tr id="tr' + data[i].cus_phone + '">' +
+                                '<td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td>' +
+                                '<td id="user' + data[i].cus_phone + '"></td>' +
+                                '<td><a class="addDelete" id="' + data[i].cus_phone + '" onClick="addBikeConsole(this); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> เพิ่มลดรถจักรยานยนต์ </a></td>' +
+                                '</tr>'
+                        
+                                $.get("https://toombike.kku.ac.th/user/bike?phone=" + encodeURIComponent(data[i].cus_phone) , function(json){
+                                    var card2 = ''
+                                    var cusData = json['Data']
+                                    var userData = json['user']
+                                    var cusphone3 = userData[0].cus_phone
+                                    var count = 0
+                                    //console.log(cusphone3)
+
+                                    if ( cusData == 'No data Found..') {
+                                        card2 += '<p>ไม่มีรถจักรยานยนต์</p>'
+                                    } else {
+                                        card2 += '</ul>'
+                                        for (var j = 0; j < cusData.length; j++) { 
+                                            /*var cusphone = cusData[j].cus_phone
+                                            var cusphone2 = cusphone.split('+66');*/
+
+                                            card2 +=    '<li id="user' + cusphone3 + 'bike' + count + '">หมายเลขทะเบียน : ' + cusData[j].bike_licence + 
+                                                        '<br>ยี่ห้อ : ' + cusData[j].bike_brand + 
+                                                        '<br>รุ่น : ' + cusData[j].bike_model + 
+                                                        '<br>สี : ' + cusData[j].bike_color + 
+                                                        '<br><a id="' + cusphone3 + 'bike' + count + '" onclick="editDetail(this, \'' + cusData[j].bike_licence + '\', \'' + cusData[j].bike_brand + '\', \'' + cusData[j].bike_model + '\', \'' + cusData[j].bike_color + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขข้อมูลรถจักรยานยนต์ </a>' +
+                                                        '</li><br>'
+                                            count++
+                                        }
+                                        card2 += '</ul>'
+                                    }
+                                    $('#user' +  cusphone3).append(card2);
+                                });
+                                preData = data[i].cus_phone
+                                console.log(preData + ':' + currentData)
+                            }
+                            /*var phoneNum = data[i].cus_phone
+                            var phone2 = phoneNum.split('+66');
+                            var phone3 = phone2[1];*/
+                            //console.log(data[i].cus_phone)
+    
+                           
+                        }
+                        card += '</table>'
+                    }
+                    $('#cusphoneView').html(card);
+                });
+            };
+
+            function phoneSearchCard() {
+                var search_val =  $('[name="phone_search"]').val();
                 $.get("https://toombike.kku.ac.th/search/user?search=" + search_val, function(json){
                     var card = '';
                     var preData = ''

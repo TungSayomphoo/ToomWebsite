@@ -24,7 +24,11 @@ html, body {
     font-family: 'Roboto','sans-serif';
     line-height: 30px;
     padding-left: 10px;
-  }
+}
+
+td {
+    padding: 15px;
+}
 
 @media only screen and (max-width: 768px) {
     #map-canvas {

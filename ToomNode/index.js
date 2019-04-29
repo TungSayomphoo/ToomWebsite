@@ -822,7 +822,7 @@ app.delete('/delete/bike',function(req,res){
 app.get('/search/user',function(req,res){
     var search = req.query.search;
     var data = {};
-    res.locals.connection.query("SELECT * from customer natural join owner natural join bike where cus_phone=? or cus_name=? or cus_email=? or bike_licence=? or bike_brand=? or bike_model=?",[search,search,search,search,search,search],function(err, rows, fields){
+    res.locals.connection.query('SELECT * from customer natural join owner natural join bike where cus_phone like "\%' + search + '\%" or cus_name  like "\%' + search + '\%" or cus_email  like "\%' + search + '\%" or bike_licence  like "\%' + search + '\%" or bike_brand  like "\%' + search + '\%" or bike_model  like "\%' + search + '\%"',function(err, rows, fields){
         if (err) {
             data["Data"] = err;
             console.log(err);
@@ -843,7 +843,7 @@ app.get('/search/history',function(req,res){
     var status = req.query.status;
     var search = req.query.search;
     var data = {};
-    res.locals.connection.query("SELECT * from history natural join customer natural join bike where status=? and (cus_phone=? or cus_name=? or cus_email=? or bike_licence=? or bike_brand=? or bike_model=?) order by his_date desc, his_time desc",[status,search,search,search,search,search,search],function(err, rows, fields){
+    res.locals.connection.query('SELECT * from history natural join customer natural join bike where status=? and (cus_phone like "\%' + search + '\%" or cus_name like "\%' + search + '\%" or cus_email like "\%' + search + '\%" or bike_licence like "\%' + search + '\%" or bike_brand like "\%' + search + '\%" or bike_model like "\%' + search + '\%") order by his_date desc, his_time desc',[status],function(err, rows, fields){
         if (err) {
             data["Data"] = err;
             console.log(err);

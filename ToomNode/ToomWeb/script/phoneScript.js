@@ -1,5 +1,4 @@
 var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
-var userLogin
 
 /*function initMap() {
     if (navigator.geolocation) {
@@ -20,8 +19,6 @@ var userLogin
 function handleLocationError() {
     console.log('error')
 }*/
-detectLogin()
-            createCard();
 
             var currentdatetest = new Date(); 
             var datetimetest = "Last Sync: " + currentdatetest.getDate() + "/"
@@ -37,8 +34,11 @@ detectLogin()
                 $("#search_button").click(function () {  
                     var search_val =  $('[name="search"]').val();
                     searchCard(search_val);
-                    console.log(search_val)  
                 });  
+                $("#phone_search_button").click(function () { 
+                    var search_val =  $('[name="phone_search"]').val(); 
+                    searchCard(search_val);
+                });
             });
 
             function createCard() {
@@ -58,12 +58,13 @@ detectLogin()
                                 '<th>ข้อมูลการแจ้งซ่อม</th></tr>' +
                                 '<th></th></tr></thead>';
 
-                        phone += '<table class="table table-hover table-striped">'
+                        phone += '<table class="table2 table-hover table-striped">'
                             
                         for (var i = 0; i < data.length; i++) {
                             count++;
                             var dateData = data[i].his_date;
-                            var dateSplit = dateData.split('T', 1);
+                            var dateSplittest = dateData.split('T');
+                            var dateSplit2 = dateSplittest[0].split('-');
                             var price = data[i].price
 
                             if (price == 0) {
@@ -71,7 +72,7 @@ detectLogin()
                             }
                             
                             /*card += '<div class="card" id="his' + data[i].his_num + '"  onclick="editDetail(0' + data[i].his_num + ')">' +
-                                '<span><p>' + dateSplit + ' ' + data[i].his_time + '</p></span><hr>' +
+                                '<span><p>' + dateSplit2[2] + ' ' + getMonth(dateSplit2[1]) + ' พ.ศ. ' + getBE(dateSplit2[0]) + ' ' + data[i].his_time + '</p></span><hr>' +
                                 '<table class="cardTable"><tr>' + 
                                 '<td class="numberTd" align="center"></td>' +
                                 '<td class="cardTd"><ul><li>' + data[i].cus_name + '</li><li>'  + data[i].cus_phone + '</li><li>'  + data[i].cus_email + '</li></ul></td>' +
@@ -83,14 +84,14 @@ detectLogin()
                             
                             /*card += '<div class="card" id="his' + data[i].his_num + '"  onclick="editDetail(0' + data[i].his_num + ')">' +
                                 '<table class="cardTable"><tr>' + 
-                                '<td class="numberTd" align="center">' + dateSplit + '<br>' + data[i].his_time + '</td>' +
+                                '<td class="numberTd" align="center">' + dateSplit2[2] + ' ' + getMonth(dateSplit2[1]) + ' พ.ศ. ' + getBE(dateSplit2[0]) + '<br>' + data[i].his_time + '</td>' +
                                 '<td class="cardTd"><ul><li>' + data[i].cus_name + '</li><li>'  + data[i].cus_phone + '</li></ul></td>' +
                                 '<td class="cardTd"><ul><li>' + data[i].bike_licence + '</li><li>' + data[i].bike_brand + '</li><li>'  + data[i].bike_model + '</li><li>'  + data[i].bike_color + '</li></ul></td>' +
                                 '<td class="cardTd">' + data[i].status + '</td></tr>' +
                                 '</table></div>';*/
 
                             /*card += '<div class="card" id="his' + data[i].his_num + '"  onclick="editDetail(0' + data[i].his_num + ')">' +
-                                '<span><p>' + dateSplit + ' ' + data[i].his_time + '</p></span><hr>' +
+                                '<span><p>' + dateSplit2[2] + ' ' + getMonth(dateSplit2[1]) + ' พ.ศ. ' + getBE(dateSplit2[0]) + ' ' + data[i].his_time + '</p></span><hr>' +
                                 '<table class="cardTable"><tr>' + 
                                 '<td><ul><li>' + data[i].cus_name + '</li><li>'  + data[i].cus_phone + '</li></ul></td>' +
                                 '<td><ul><li>' + data[i].bike_licence + '</li><li>' + data[i].bike_brand + '</li><li>'  + data[i].bike_model + '</li><li>'  + data[i].bike_color + '</li></ul></td></tr>' +
@@ -101,19 +102,19 @@ detectLogin()
                                 '</table></div>';*/
 
                             card += '<tr id="tr' + data[i].his_num + '">' +
-                                    '<td><ul><li>วันที่ : ' + dateSplit + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td>' +
+                                    '<td><ul><li>วันที่ : ' + dateSplit2[2] + ' ' + getMonth(dateSplit2[1]) + ' พ.ศ. ' + getBE(dateSplit2[0]) + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td>' +
                                     '<td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td>' +
                                     '<td><ul><li>เลขทะเบียนรถ : ' + data[i].bike_licence + '</li><li>ยี่ห้อ : ' + data[i].bike_brand + '</li><li>รุ่น : ' + data[i].bike_model + '</li><li>สี : ' + data[i].bike_color + '</li></ul></td>' +
                                     '<td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td>' +
-                                    '<td><a id="td' + data[i].his_num + '" onClick="editDetail(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a></td>' +
+                                    '<td><a id="td' + data[i].his_num + '" onClick="editDetail(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a><hr><hr></td>' +
                                     '</tr>'
 
                             phone += '<td class="reqTd">' + 
-                                    '<tr> <th>วันเวลา</th>            <td><ul><li>วันที่ : ' + dateSplit + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td></tr>' +
+                                    '<tr> <th>วันเวลา</th>            <td><ul><li>วันที่ : ' + dateSplit2[2] + ' ' + getMonth(dateSplit2[1]) + ' พ.ศ. ' + getBE(dateSplit2[0]) + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td></tr>' +
                                     '<tr> <th>ข้อมูลลูกค้า</th>         <td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td></tr>' +
                                     '<tr> <th>ข้อมูลรถจักรยานยนต์</th>  <td><ul><li>เลขทะเบียนรถ : ' + data[i].bike_licence + '</li><li>ยี่ห้อ : ' + data[i].bike_brand + '</li><li>รุ่น : ' + data[i].bike_model + '</li><li>สี : ' + data[i].bike_color + '</li></ul></td></tr>' +
                                     '<tr id="reqTr' + data[i].his_num + '" > <th>ข้อมูลการแจ้งซ่อม</th>    <td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td></tr>' +
-                                    '<tr id="editTr' + data[i].his_num + '" > <th></th>                 <td><a id="td' + data[i].his_num + '" onClick="editDetailPhone(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a></td></tr>' +
+                                    '<tr id="editTr' + data[i].his_num + '" > <th></th>                 <td><a id="td' + data[i].his_num + '" onClick="editDetailPhone(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a><hr><hr><hr><hr></td></tr>' +
                                     '</td>'
                         }
                         card += '</table>'
@@ -142,12 +143,13 @@ detectLogin()
                                 '<th>ข้อมูลการแจ้งซ่อม</th></tr>' +
                                 '<th></th></tr></thead>';
 
-                        phone += '<table class="table table-hover table-striped">'
+                        phone += '<table class="table2 table-hover table-striped">'
                             
                         for (var i = 0; i < data.length; i++) {
                             count++;
                             var dateData = data[i].his_date;
-                            var dateSplit = dateData.split('T', 1);
+                            var dateSplittest = dateData.split('T');
+                            var dateSplit2 = dateSplittest[0].split('-');
                             var price = data[i].price
 
                             if (price == 0) {
@@ -155,19 +157,19 @@ detectLogin()
                             }
 
                             card += '<tr id="tr' + data[i].his_num + '">' +
-                                    '<td><ul><li>วันที่ : ' + dateSplit + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td>' +
+                                    '<td><ul><li>วันที่ : ' + dateSplit2[2] + ' ' + getMonth(dateSplit2[1]) + ' พ.ศ. ' + getBE(dateSplit2[0]) + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td>' +
                                     '<td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td>' +
                                     '<td><ul><li>เลขทะเบียนรถ : ' + data[i].bike_licence + '</li><li>ยี่ห้อ : ' + data[i].bike_brand + '</li><li>รุ่น : ' + data[i].bike_model + '</li><li>สี : ' + data[i].bike_color + '</li></ul></td>' +
                                     '<td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td>' +
-                                    '<td><a id="td' + data[i].his_num + '" onClick="editDetail(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a></td>' +
+                                    '<td><a id="td' + data[i].his_num + '" onClick="editDetail(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a><hr><hr></td>' +
                                     '</tr>'
 
                             phone += '<td class="reqTd">' + 
-                                    '<tr> <th>วันเวลา</th>            <td><ul><li>วันที่ : ' + dateSplit + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td></tr>' +
+                                    '<tr> <th>วันเวลา</th>            <td><ul><li>วันที่ : ' + dateSplit2[2] + ' ' + getMonth(dateSplit2[1]) + ' พ.ศ. ' + getBE(dateSplit2[0]) + '</li><li>เวลา : ' + data[i].his_time + '</li></ul></td></tr>' +
                                     '<tr> <th>ข้อมูลลูกค้า</th>         <td><ul><li>เบอร์โทรศัพท์ : ' + data[i].cus_phone + '</li><li>ชื่อลูกค้า : ' + data[i].cus_name + '</li><li>อีเมล : ' + data[i].cus_email + '</li></ul></td></tr>' +
                                     '<tr> <th>ข้อมูลรถจักรยานยนต์</th>  <td><ul><li>เลขทะเบียนรถ : ' + data[i].bike_licence + '</li><li>ยี่ห้อ : ' + data[i].bike_brand + '</li><li>รุ่น : ' + data[i].bike_model + '</li><li>สี : ' + data[i].bike_color + '</li></ul></td></tr>' +
                                     '<tr id="reqTr' + data[i].his_num + '" > <th>ข้อมูลการแจ้งซ่อม</th>    <td><ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i> แสดงบนแผนที่' + ' </a></li></ul></td></tr>' +
-                                    '<tr id="editTr' + data[i].his_num + '" > <th></th>                  <td><a id="td' + data[i].his_num + '" onClick="editDetailPhone(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a></td></tr>' +
+                                    '<tr id="editTr' + data[i].his_num + '" > <th></th>                  <td><a id="td' + data[i].his_num + '" onClick="editDetailPhone(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a><hr><hr></td></tr>' +
                                     '</td>'
                         }
                         card += '</table>'
@@ -229,7 +231,7 @@ detectLogin()
 
                 var priceHandle =   '<div class="form-group">' +
                                     '<label for="price">ราคา :</label>' +
-                                    '<input type=number step=1 class="form-control" id="price' + his_id + '" value="' + price + '">' +
+                                    '<input type=number step=1 class="form-control" id="price' + his_id + '" value="' + price + '" min="0">' +
                                     '</div>'
                 $(priceLi).html(priceHandle);
 
@@ -242,7 +244,7 @@ detectLogin()
                                     
                 $(infoTd).append(infoTdHandle);
 
-                var editTdHandle =  '<p class="disable">กำลังแก้ไขการแจ้งซ่อม</p>'
+                var editTdHandle =  '<p class="disable">กำลังแก้ไขการแจ้งซ่อม</p><hr><hr>'
                 $(editTd).html(editTdHandle);               
             }
 
@@ -295,7 +297,7 @@ detectLogin()
 
                 var priceHandle =   '<div class="form-group">' +
                                     '<label for="price">ราคา :</label>' +
-                                    '<input type=number step=1 class="form-control" id="price' + his_id + '" value="' + price + '">' +
+                                    '<input type=number step=1 class="form-control" id="price' + his_id + '" value="' + price + '" min="0">' +
                                     '</div>'
                 $(priceLi).html(priceHandle);
 
@@ -308,7 +310,7 @@ detectLogin()
                                     
                 $(infoTd).append(infoTdHandle);
 
-                var editTdHandle =  '<p class="disable">กำลังแก้ไขการแจ้งซ่อม</p>'
+                var editTdHandle =  '<p class="disable">กำลังแก้ไขการแจ้งซ่อม</p><hr><hr>'
                 $(editTd).html(editTdHandle);              
             }
 
@@ -329,6 +331,14 @@ detectLogin()
 
                 var detail = $('#textarea' + his_num).val();
                 var price = $('#price' + his_num).val();
+                var priceCheck = parseInt(price)
+                if (priceCheck < 0) {
+                    price = '0'
+                }
+                var priceCheck = parseInt(price)
+                if (priceCheck < 0) {
+                    price = '0'
+                }
                 var status = $(".radioStatus" + his_num + ":checked").val();
 
                 //console.log(detail + ' ' + price + ' ' + status)
@@ -349,8 +359,13 @@ detectLogin()
                     dataType: 'json',  
                     data: data,  
                     success: function (data, textStatus, xhr) {  
-                        alert('ดำเนินการแก้ไขสำเร็จ');
-                        reload_page()
+                        if (priceCheck < 0) {
+                            alert('ดำเนินการแก้ไขสำเร็จ *หมายเหตุ : ราคาที่เป็นจำนวนลบจะไม่ถูกบันทึก');
+                            reload_page()
+                        } else {
+                            alert('ดำเนินการแก้ไขสำเร็จ');
+                            reload_page()
+                        }
                     },  
                     error: function (xhr, textStatus, errorThrown) {  
                         alert('การแก้ไขล้มเหลว โปรดตรวจสอบว่าลูกค้าเป็นเจ้าของรถจักรยานยนต์หรือไม่');  
@@ -374,8 +389,6 @@ detectLogin()
                     } else {
                         for (var i = 0; i < 1; i++) {
                             count++;
-                            var dateData = data[i].his_date;
-                            var dateSplit = dateData.split('T', 1);
                             var price = data[i].price
 
                             if (price == 0) {
@@ -383,7 +396,7 @@ detectLogin()
                             }
 
                             card += '<ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i>แสดงบนแผนที่' + ' </a></li></ul>'
-                            editTdHander += '<a id="td' + data[i].his_num + '" onClick="editDetail(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a>'
+                            editTdHander += '<a id="td' + data[i].his_num + '" onClick="editDetail(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a><hr><hr>'
                         }
                     }
                     $(infoTd).html(card);
@@ -405,11 +418,9 @@ detectLogin()
                     } else {
                         for (var i = 0; i < 1; i++) {
                             count++;
-                            var dateData = data[i].his_date;
-                            var dateSplit = dateData.split('T', 1);
 
                             card += '<ul><li>สถานะ : ' + data[i].status + '</li><li>รายละเอียด : ' + data[i].detail + '</li><li>ราคา : ' + data[i].price + '</li><li>สถานที่ : <a id="lat' + data[i].lat + 'lng' + data[i].lng + '" href="pubnubGeo.html?lat=' + data[i].lat + '&lng=' + data[i].lng + '"><i class="glyphicon glyphicon-map-marker"></i>แสดงบนแผนที่' + ' </a></li></ul>'
-                            editTdHander += '<a id="td' + data[i].his_num + '" onClick="editDetailPhone(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a>'
+                            editTdHander += '<a id="td' + data[i].his_num + '" onClick="editDetailPhone(this, \'' + data[i].status + '\', \'' + data[i].detail + '\', \'' + data[i].price + '\'); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> แก้ไขการแจ้งซ่อม </a><hr><hr>'
                         }
                     }
                     $(infoTd).html(card);
@@ -419,6 +430,4 @@ detectLogin()
 
             function reload_page() {
                 window.location.reload();
-            }
-
-            
+            }            

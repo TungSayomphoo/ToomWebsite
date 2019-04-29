@@ -12,8 +12,6 @@ function detectLogin() {
             text2 = '<span class="glyphicon glyphicon-user"></span> ' + data.user + ' <span class="caret">'
             $('#username').html(text)
             $('#username2').html(text2)
-            notification()
-            createCard()
         } else {
             window.location.replace("https://toombike.kku.ac.th/loginPlease.html");
         }
@@ -28,8 +26,6 @@ function detectLogin() {
             text2 = '<span class="glyphicon glyphicon-user"></span> ' + data.user + ' <span class="caret">'
             $('#username').html(text)
             $('#username2').html(text2)
-            notification()
-            createCard()
         } else {
             window.location.replace("http://localhost/loginPlease.html");
         }
