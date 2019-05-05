@@ -208,9 +208,9 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
 
                 var statusHandle =  '<label for="radio">สถานะ :</label>' +
                                     '<form action="">' +
-                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="pickUp" ' + pickUp + ' value="แจ้งซ่อม">แจ้งซ่อม<br>' + 
-                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="process" ' + process + ' value="กำลังดำเนินการ">กำลังดำเนินการ<br>' +
-                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="finish" ' + finish + ' value="เสร็จสิ้น">เสร็จสิ้น<br>' +
+                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="pickUp" ' + pickUp + ' value="แจ้งซ่อม"><span id="grayDot"></span> แจ้งซ่อม<br>' + 
+                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="process" ' + process + ' value="กำลังดำเนินการ"><span id="yellowDot"></span> กำลังดำเนินการ<br>' +
+                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="finish" ' + finish + ' value="เสร็จสิ้น"><span id="greenDot"></span> เสร็จสิ้น<br>' +
                                     '</form>'
                 $(statusLi).html(statusHandle);
 
@@ -274,9 +274,9 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
 
                 var statusHandle =  '<label for="radio">สถานะ :</label>' +
                                     '<form action="">' +
-                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="pickUp" ' + pickUp + ' value="แจ้งซ่อม">แจ้งซ่อม<br>' + 
-                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="process" ' + process + ' value="กำลังดำเนินการ">กำลังดำเนินการ<br>' +
-                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="finish" ' + finish + ' value="เสร็จสิ้น">เสร็จสิ้น<br>' +
+                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="pickUp" ' + pickUp + ' value="แจ้งซ่อม"><span id="grayDot"></span> แจ้งซ่อม<br>' + 
+                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="process" ' + process + ' value="กำลังดำเนินการ"><span id="yellowDot"></span> กำลังดำเนินการ<br>' +
+                                    '<input type="radio" name="status" class="radioStatus' + his_id + '" id="finish" ' + finish + ' value="เสร็จสิ้น"><span id="greenDot"></span> เสร็จสิ้น<br>' +
                                     '</form>'
                 $(statusLi).html(statusHandle);
 
