@@ -33,3 +33,7 @@ website https://toombike.kku.ac.th/
    - ร้านค้าสามารถส่งการแจ้งเตือนไปยังลูกค้าได้
    - ร้านค้าสามารถแก้ไขข้อมูลลูกค้าได้
    - ร้านค้าสามารถดูตำแหน่งที่ลูกค้าให้ไปรับรถได้
+
+==================================================================
+
+![alt text](https://github.com/TungSayomphoo/ToomWebsite/blob/master/ToomNode/toomflow.jpg)
