@@ -77,7 +77,7 @@ var initialize = function() {
     });
     var toomIW = new google.maps.InfoWindow(
       {content: '<div><table><tr>' + 
-                '<td><img src="https://toombike.kku.ac.th/images/toomview1.jpg" class="img-responsive img-circle" style="display:inline" alt="Toom" width="150" height="150"></td>' + 
+                '<td><img src="https://www.toombike.com/images/toomview1.jpg" class="img-responsive img-circle" style="display:inline" alt="Toom" width="150" height="150"></td>' + 
                 '<td><h4>ร้านตุ่มมอไซต์</h4>' + 
                 '<p>56/65 ถนนกัลปพฤกษ์ ตำบลในเมือง อำเภอเมือง จังหวัดขอนแก่น. 40000</p>' + 
                 '<p>facebook : <a href="https://www.facebook.com/%E0%B8%95%E0%B8%B8%E0%B9%88%E0%B8%A1-%E0%B8%A1%E0%B8%AD%E0%B9%84%E0%B8%8B%E0%B8%84%E0%B9%8C-1714442265300257/">ตุ่ม มอไซค์</a></p>' +

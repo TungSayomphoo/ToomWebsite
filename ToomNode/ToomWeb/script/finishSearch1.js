@@ -15,7 +15,7 @@ initSearch()
             function initSearch() {
                 const urlParams = new URLSearchParams(window.location.search);
                 const search_val = urlParams.get('search');
-                $.get("https://toombike.kku.ac.th/search/history?search=" + search_val + "&status=เสร็จสิ้น", function(json){
+                $.get("https://www.toombike.com/search/history?search=" + search_val + "&status=เสร็จสิ้น", function(json){
                     var card = ''
                     var phone = ''
                     var count = 0;
@@ -71,7 +71,7 @@ initSearch()
 
             function searchCard() {
                 var search_val =  $('[name="search"]').val();
-                $.get("https://toombike.kku.ac.th/search/history?search=" + search_val + "&status=เสร็จสิ้น", function(json){
+                $.get("https://www.toombike.com/search/history?search=" + search_val + "&status=เสร็จสิ้น", function(json){
                     var card = ''
                     var phone = ''
                     var count = 0;
@@ -127,7 +127,7 @@ initSearch()
 
             function phoneSearchCard() {
                 var search_val =  $('[name="phone_search"]').val();
-                $.get("https://toombike.kku.ac.th/search/history?search=" + search_val + "&status=เสร็จสิ้น", function(json){
+                $.get("https://www.toombike.com/search/history?search=" + search_val + "&status=เสร็จสิ้น", function(json){
                     var card = ''
                     var phone = ''
                     var count = 0;
@@ -350,7 +350,7 @@ initSearch()
                 }
 
                 $.ajax({  
-                    url: 'https://toombike.kku.ac.th/put/history',  
+                    url: 'https://www.toombike.com/put/history',  
                     type: 'PUT',  
                     dataType: 'json',  
                     data: data,  
@@ -375,7 +375,7 @@ initSearch()
                 var infoTd = tr.find('td')[3]
                 var editTd = tr.find('td')[4]
 
-                $.get("https://toombike.kku.ac.th/selecthis?his_num=" + his_num , function(json){
+                $.get("https://www.toombike.com/selecthis?his_num=" + his_num , function(json){
                     var card = '';
                     var editTdHander = '';
                     var count = 0;
@@ -407,7 +407,7 @@ initSearch()
                 var infoTd = $('#reqTr' + his_num).find('td')[0]
                 var editTd = $('#editTr' + his_num).find('td')[0]
 
-                $.get("https://toombike.kku.ac.th/selecthis?his_num=" + his_num , function(json){
+                $.get("https://www.toombike.com/selecthis?his_num=" + his_num , function(json){
                     var card = '';
                     var editTdHander = '';
                     var count = 0;

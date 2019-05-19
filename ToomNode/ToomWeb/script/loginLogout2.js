@@ -3,7 +3,7 @@ detectLogin()
 hideNavbar()
 
 function detectLogin() {
-    $.get("https://toombike.kku.ac.th/home", function(json){
+    $.get("https://www.toombike.com/home", function(json){
         var text,text2
         var data = json
         if ( data.loggedin == 'true') {
@@ -13,7 +13,7 @@ function detectLogin() {
             $('#username').html(text)
             $('#username2').html(text2)
         } else {
-            window.location.replace("https://toombike.kku.ac.th/loginPlease.html");
+            window.location.replace("https://www.toombike.com/loginPlease.html");
         }
     });
 
@@ -33,9 +33,9 @@ function detectLogin() {
 }
 
 function logout() {
-    $.get("https://toombike.kku.ac.th/logout", function(json){
+    $.get("https://www.toombike.com/logout", function(json){
         alert('คุณได้ออกจากระบบแล้ว')
-        window.location.replace("https://toombike.kku.ac.th/");
+        window.location.replace("https://www.toombike.com/");
     });
 
     /*$.get("http://localhost/logout", function(json){

@@ -38,7 +38,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
             function createCard() {
                 var phoneUrl = getParameterByName('phone')
                 console.log(phoneUrl);
-                $.get("https://toombike.kku.ac.th/user?phone=" + encodeURIComponent(phoneUrl), function(json){
+                $.get("https://www.toombike.com/user?phone=" + encodeURIComponent(phoneUrl), function(json){
                     var card = '';
                     var count = 0;
                     var data = json['Data']
@@ -68,7 +68,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                     $('#cardView').html(card);
                 });
 
-                $.get("https://toombike.kku.ac.th/user/bike?phone=" + encodeURIComponent(phoneUrl) , function(json){
+                $.get("https://www.toombike.com/user/bike?phone=" + encodeURIComponent(phoneUrl) , function(json){
                     var card = '';
                     var count = 0;
                     var data = json['Data']

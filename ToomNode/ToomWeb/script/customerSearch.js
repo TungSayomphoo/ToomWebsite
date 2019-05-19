@@ -16,7 +16,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
             function initCus() {
                 const urlParams = new URLSearchParams(window.location.search);
                 const search_val = urlParams.get('search');
-                $.get("https://toombike.kku.ac.th/search/user?search=" + search_val, function(json){
+                $.get("https://www.toombike.com/search/user?search=" + search_val, function(json){
                     var card = '';
                     var preData = ''
                     var currentData = ''
@@ -40,7 +40,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                                 '<td><a class="addDelete" id="' + data[i].cus_phone + '" onClick="addBikeConsole(this); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> เพิ่มลดรถจักรยานยนต์ </a></td>' +
                                 '</tr>'
                         
-                                $.get("https://toombike.kku.ac.th/user/bike?phone=" + encodeURIComponent(data[i].cus_phone) , function(json){
+                                $.get("https://www.toombike.com/user/bike?phone=" + encodeURIComponent(data[i].cus_phone) , function(json){
                                     var card2 = ''
                                     var cusData = json['Data']
                                     var userData = json['user']
@@ -86,7 +86,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
 
             function searchCard() {
                 var search_val =  $('[name="search"]').val();
-                $.get("https://toombike.kku.ac.th/search/user?search=" + search_val, function(json){
+                $.get("https://www.toombike.com/search/user?search=" + search_val, function(json){
                     var card = '';
                     var preData = ''
                     var currentData = ''
@@ -110,7 +110,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                                 '<td><a class="addDelete" id="' + data[i].cus_phone + '" onClick="addBikeConsole(this); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> เพิ่มลดรถจักรยานยนต์ </a></td>' +
                                 '</tr>'
                         
-                                $.get("https://toombike.kku.ac.th/user/bike?phone=" + encodeURIComponent(data[i].cus_phone) , function(json){
+                                $.get("https://www.toombike.com/user/bike?phone=" + encodeURIComponent(data[i].cus_phone) , function(json){
                                     var card2 = ''
                                     var cusData = json['Data']
                                     var userData = json['user']
@@ -156,7 +156,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
 
             function phoneSearchCard() {
                 var search_val =  $('[name="phone_search"]').val();
-                $.get("https://toombike.kku.ac.th/search/user?search=" + search_val, function(json){
+                $.get("https://www.toombike.com/search/user?search=" + search_val, function(json){
                     var card = '';
                     var preData = ''
                     var currentData = ''
@@ -180,7 +180,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                                 '<td><a class="addDelete" id="' + data[i].cus_phone + '" onClick="addBikeConsole(this); return false;" href="fallback.html"><i class="glyphicon glyphicon-pencil"></i> เพิ่มลดรถจักรยานยนต์ </a></td>' +
                                 '</tr>'
                         
-                                $.get("https://toombike.kku.ac.th/user/bike?phone=" + encodeURIComponent(data[i].cus_phone) , function(json){
+                                $.get("https://www.toombike.com/user/bike?phone=" + encodeURIComponent(data[i].cus_phone) , function(json){
                                     var card2 = ''
                                     var cusData = json['Data']
                                     var userData = json['user']
@@ -279,7 +279,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 }
 
                 $.ajax({  
-                    url: 'https://toombike.kku.ac.th/update/bike',  
+                    url: 'https://www.toombike.com/update/bike',  
                     type: 'PUT',  
                     dataType: 'json',  
                     data: data,  
@@ -305,7 +305,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 $(e).attr('class',"backAddDelete");
                 $(e).html('<i class="glyphicon glyphicon-share-alt"></i> ย้อนกลับ');
 
-                $.get("https://toombike.kku.ac.th/user/bike?phone=" + encodeURIComponent(aId) , function(json){
+                $.get("https://www.toombike.com/user/bike?phone=" + encodeURIComponent(aId) , function(json){
                     var card2 = ''
                     var cusData = json['Data']
                     var userData = json['user']
@@ -356,7 +356,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 $(e).attr('class',"addDelete");
                 $(e).html('<i class="glyphicon glyphicon-pencil"></i> เพิ่มลดรถจักรยานยนต์');
 
-                $.get("https://toombike.kku.ac.th/user/bike?phone=" + encodeURIComponent(aId) , function(json){
+                $.get("https://www.toombike.com/user/bike?phone=" + encodeURIComponent(aId) , function(json){
                     var card2 = ''
                     var cusData = json['Data']
                     var userData = json['user']
@@ -403,7 +403,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 }
 
                 $.ajax({  
-                    url: 'https://toombike.kku.ac.th/delete/bike',  
+                    url: 'https://www.toombike.com/delete/bike',  
                     type: 'DELETE',  
                     dataType: 'json',  
                     data: data,  
@@ -439,7 +439,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 }
 
                 $.ajax({  
-                    url: 'https://toombike.kku.ac.th/insert/bike',  
+                    url: 'https://www.toombike.com/insert/bike',  
                     type: 'POST',  
                     dataType: 'json',  
                     data: data,  

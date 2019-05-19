@@ -15,14 +15,14 @@ function login(user, pass) {
     }
 
     $.ajax({  
-        url: 'https://toombike.kku.ac.th/auth',
+        url: 'https://www.toombike.com/auth',
         //url: 'http://localhost/auth',  
         type: 'POST',  
         dataType: 'json',  
         data: data,  
         success: function (data, textStatus, xhr) {  
             if (data.status == 'success') {
-                window.location.replace("https://toombike.kku.ac.th/phone.html");
+                window.location.replace("https://www.toombike.com/phone.html");
                 //window.location.replace("http://localhost/phone.html");
             } else if (data.status == 'incorrect') {
                 text = '<div class="alert alert-danger"><strong>username</strong> หรือ <strong>password</strong> ไม่ถูกต้อง'

@@ -954,3 +954,7 @@ app.get('/logout', function(req, res) {
     req.session.loggedin = false;
 	res.end();
 });
+
+app.get('/.well-known/acme-challenge/wsu3EBNa2TKqF1VxwDactAze6FOM2dDrWAgxzSNeR20', function(req, res) {
+    res.send('wsu3EBNa2TKqF1VxwDactAze6FOM2dDrWAgxzSNeR20.ICQglS5KVwM2hZoevdvfYiAtWilqSXYpRC3elPEh9qo');
+});

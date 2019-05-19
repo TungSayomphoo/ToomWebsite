@@ -8,7 +8,7 @@ function searchHisNum(sHisnum, notiId) {
 
     notification()
     
-    $.get("https://toombike.kku.ac.th/selecthis?his_num=" + sHisnum , function(json){
+    $.get("https://www.toombike.com/selecthis?his_num=" + sHisnum , function(json){
         var card = ''
         var phone = ''
         var count = 0;
@@ -63,7 +63,7 @@ function searchHisNum(sHisnum, notiId) {
 };
 
 function notification() {
-    $.get("https://toombike.kku.ac.th/allhis", function(json){
+    $.get("https://www.toombike.com/allhis", function(json){
         var data = json['Data']
         var his_numAr = []
 

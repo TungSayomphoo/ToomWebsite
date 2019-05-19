@@ -13,7 +13,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
             });
 
             function createCard() {
-                $.get("https://toombike.kku.ac.th/allhis/status?status=กำลังดำเนินการ", function(json){
+                $.get("https://www.toombike.com/allhis/status?status=กำลังดำเนินการ", function(json){
                     var card = ''
                     var phone = ''
                     var count = 0;
@@ -93,7 +93,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
             };
 
             function searchCard(search_val) {
-                $.get("https://toombike.kku.ac.th/search/history?search=" + search_val + "&status=กำลังดำเนินการ", function(json){
+                $.get("https://www.toombike.com/search/history?search=" + search_val + "&status=กำลังดำเนินการ", function(json){
                     var card = ''
                     var phone = ''
                     var count = 0;
@@ -341,7 +341,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 }
 
                 $.ajax({  
-                    url: 'https://toombike.kku.ac.th/put/history',  
+                    url: 'https://www.toombike.com/put/history',  
                     type: 'PUT',  
                     dataType: 'json',  
                     data: data,  
@@ -366,7 +366,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 var infoTd = tr.find('td')[3]
                 var editTd = tr.find('td')[4]
 
-                $.get("https://toombike.kku.ac.th/selecthis?his_num=" + his_num , function(json){
+                $.get("https://www.toombike.com/selecthis?his_num=" + his_num , function(json){
                     var card = '';
                     var editTdHander = '';
                     var count = 0;
@@ -393,7 +393,7 @@ var googleAPIKey = 'AIzaSyAJF7RaWrEIV1MA18HlXowsuTxiEjg6fE8';
                 var infoTd = $('#reqTr' + his_num).find('td')[0]
                 var editTd = $('#editTr' + his_num).find('td')[0]
 
-                $.get("https://toombike.kku.ac.th/selecthis?his_num=" + his_num , function(json){
+                $.get("https://www.toombike.com/selecthis?his_num=" + his_num , function(json){
                     var card = '';
                     var editTdHander = '';
                     var count = 0;
