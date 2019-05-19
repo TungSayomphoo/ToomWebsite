@@ -4,8 +4,8 @@ Develop by  Sayomphoo Yongpadcha
             Computer Engineer
             Khon Kaen University
 
-server id & password for configuration [ติดต่อ/contact](https://www.facebook.com/tung.sayomphoo)\n
-domain name : [namecheap](https://www.namecheap.com/)\n
+server id & password for configuration [ติดต่อ/contact](https://www.facebook.com/tung.sayomphoo)
+domain name : [namecheap](https://www.namecheap.com/)
 server : [vultr](https://my.vultr.com/) and [cloudflare](https://dash.cloudflare.com/login)
             
 API and website page code for senier's final project 2019
